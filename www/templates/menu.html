@@ -1,0 +1,44 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-chevron-left"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">Menu</h1>
+    </header>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item nav-clear menu-close href="#/app/home">
+          <i class="icon ion-home"></i>
+          Home
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/menu_cadastros">
+          <i class="icon ion-ios-compose"></i>
+          Cadastros
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/menu_consultas">
+          <i class="icon ion-search"></i>
+          Consultas
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/menu_relatorios">
+          <i class="icon ion-ios-paper"></i>
+          Relatórios
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/menu_database">
+          <i class="icon ion-archive"></i>
+          Base de Dados
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/about">
+          <i class="icon ion-information-circled"></i>
+          Sobre
+        </ion-item>
+      </ion-list>
+    </ion-content>
+</ion-side-menus>
+
+                

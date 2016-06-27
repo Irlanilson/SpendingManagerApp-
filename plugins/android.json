@@ -1,0 +1,45 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "io.litehelpers.cordova.sqlite": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.spendingmanagerapp"
+        }
+    },
+    "dependent_plugins": {}
+}

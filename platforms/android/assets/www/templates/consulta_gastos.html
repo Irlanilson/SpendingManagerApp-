@@ -1,0 +1,122 @@
+<ion-view title="Gastos">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+     </ion-nav-buttons>
+
+    <ion-content>
+        <form ng-submit="searchGastos()">
+            <div class="list list-inset">
+                <label class = "item item-input item-select">
+                    <div class = "input-label">
+                        Ano:
+                    </div>
+                    <select ng-model="gasto.ano" ng-options="ano.id as ano.valor for ano in anos">
+                        <option value="">Selecione</option>
+                    </select>
+                </label>
+                <label class = "item item-input item-select">
+                    <div class = "input-label">
+                        Mês:
+                    </div>
+                    <select ng-model="gasto.mes" ng-options="mes.id as mes.valor for mes in meses">
+                        <option value="">Selecione</option>
+                    </select>
+                </label>
+                <label class = "item item-input item-select">
+                    <div class = "input-label">
+                        Categoria:
+                    </div>
+                    <select ng-model="gasto.categoria" ng-options="cat.id as cat.descricao for cat in categorias">
+                        <option value="">Todas</option>
+                    </select>
+                </label>
+                <button type="submit" class="button button-block button-positive">Buscar</button>
+            </div>
+        </form>
+
+        <div class="list card" ng-repeat="gast in gastos">
+            <div class="item item-divider">
+                <span ng-if="gasto.categoria == 0">Categoria: {{ gast.categoria }}</span>
+                <span ng-bind="gast.descricao" ng-if="gasto.categoria !== 0"></span>
+            </div>
+            <div class="item item-body">
+                <strong>
+                    <div ng-if="gasto.categoria == 0">{{ gast.descricao }}<br/></div>
+                    <div>Dia {{ gast.data }}: {{gast.valor | currency}}</div>
+                </strong>
+            </div>
+
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item positive" ng-click="openEditGastoModal(gast.id)">
+                    <i class="icon ion-compose"></i>
+                </a>
+                <a class="tab-item assertive" ng-click="removeGasto(gast.id)">
+                    <i class="icon ion-android-close"></i>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+<script id="edit-gasto-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-dark">
+            <h1 class="title">Editar</h1>
+            <button class="button button-icon" ng-click="closeEditGastoModal()">
+                <i class="icon ion-android-close"></i>
+            </button>
+        </ion-header-bar>
+        <ion-content>
+            <form ng-submit="updateGasto()">
+                <div class="list list-inset">
+                    <label class = "item item-input item-select">
+                        <div class = "input-label">
+                            Ano:
+                        </div>
+                        <select ng-model="gasto.ano" ng-options="ano.id as ano.valor for ano in anos">
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                    <label class = "item item-input item-select">
+                        <div class = "input-label">
+                            Mês:
+                        </div>
+                        <select ng-model="gasto.mes" ng-options="mes.id as mes.valor for mes in meses">
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                    <label class = "item item-input item-select">
+                        <div class = "input-label">
+                            Dia:
+                        </div>
+                        <select ng-model="gasto.dia" ng-options="dia.id as dia.valor for dia in dias">
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                    <label class = "item item-input item-select">
+                        <div class = "input-label">
+                            Categoria:
+                        </div>
+                        <select ng-model="gasto.categoria" ng-options="cat.id as cat.descricao for cat in categorias">
+                            <option value="">Selecione</option>
+                        </select>
+                    </label>
+                    <label class="item item-input">
+                        <div class = "input-label">
+                            Descrição:
+                        </div>
+                        <input ng-model="gasto.descricao" type="text">
+                    </label>
+                    <label class="item item-input">
+                        <div class = "input-label">
+                            Valor: R$
+                        </div>
+                        <input ng-model="gasto.valor" type="text" placeholder="casas decimais com vírgula">
+                    </label>
+                    <ion-checkbox ng-model="gasto.eh_constante"  ng-checked="gasto.eh_constante == 'true'">É constante?</ion-checkbox>
+                    <button type="submit" class="button button-block button-positive">Atualizar</button>
+                </div>
+            </form>
+        </ion-content>
+    </ion-modal-view>
+</script>

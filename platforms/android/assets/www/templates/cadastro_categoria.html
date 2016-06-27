@@ -1,0 +1,16 @@
+<ion-view title="Categoria">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header">
+    <form ng-submit="saveCategoria()">
+        <div class="list list-inset">
+            <label class="item item-input">
+                <input ng-model="categoria.descricao" type="text" placeholder="Descrição da categoria">
+            </label>
+            <button type="submit" class="button button-block button-positive">Salvar</button>
+        </div>
+    </form>
+  </ion-content>
+</ion-view>
+

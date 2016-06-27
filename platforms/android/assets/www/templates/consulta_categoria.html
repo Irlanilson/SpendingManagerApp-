@@ -1,0 +1,46 @@
+<ion-view title="Categorias">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left"class="button button-icon icon ion-navicon"></button>
+     </ion-nav-buttons>
+
+    <ion-content>
+        <div class="list card" ng-repeat="cat in categorias">
+            <div class="item item-divider">
+                <span ng-bind="cat.descricao"></span>
+            </div>
+            <div class="item item-body">
+                <strong>Descrição: <span ng-bind="cat.descricao"></span></strong>
+            </div>
+
+            <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item positive" ng-click="openEditCategoriaModal(cat.id)">
+                    <i class="icon ion-compose"></i>
+                </a>
+                <a class="tab-item assertive" ng-click="removeCategoria(cat.id)">
+                    <i class="icon ion-android-close"></i>
+                </a>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+<script id="edit-categoria-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar class="bar-dark">
+            <h1 class="title">Editar</h1>
+            <button class="button button-icon" ng-click="closeEditCategoriaModal()">
+                <i class="icon ion-android-close"></i>
+            </button>
+        </ion-header-bar>
+        <ion-content>
+            <form ng-submit="updateCategoria()">
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <input ng-model="categoria.descricao" type="text">
+                    </label>
+                    <button type="submit" class="button button-block button-positive">Atualizar</button>
+                </div>
+            </form>
+        </ion-content>
+    </ion-modal-view>
+</script>

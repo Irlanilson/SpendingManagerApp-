@@ -1,0 +1,26 @@
+<ion-view title="{{titulo_relatorio}}">
+	<ion-content class="has-header">
+	    <ion-list ng-repeat="item in gastos as results">
+
+		    <ion-item class="item-divider item-positive" ng-if="(results[$index-1].categoria 	!== results[$index].categoria) || (results[$index-1].mes !== results[$index].mes)">
+		        Categoria: {{results[$index].categoria }}
+		    </ion-item>
+
+		    <ion-item ng-show="results.length == 0">
+		        Sem gastos!
+		    </ion-item>
+
+		    <ion-item>
+		        <div>Dia {{ item.data }}: {{item.descricao}} <b>{{item.valor | currency}}</b></div>
+		    </ion-item>
+
+		    <ion-item class="item-divider item-stable" ng-if="(results[$index+1].categoria !== results[$index].categoria) || (results[$index+1].mes !== results[$index].mes)">
+		    	<b>Total da Categoria: {{ item.total_categoria | currency}}</b>
+		    </ion-item>
+
+		    <ion-item class="item-divider item-stable" ng-if="$index+1 == results.length">
+		        <b>TOTAL DO MÊS: {{ item.total_mes | currency}}</b>
+		    </ion-item>
+		</ion-list>
+  	</ion-content>
+</ion-view>

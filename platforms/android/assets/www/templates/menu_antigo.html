@@ -1,0 +1,48 @@
+<ion-side-menus>
+
+  <ion-pane ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button class="button-clear"><i class="icon ion-chevron-left"></i> Back</ion-nav-back-button>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+  </ion-pane>
+
+  <ion-side-menu side="left">
+    <header class="bar bar-header bar-stable">
+      <h1 class="title">Menu</h1>
+    </header>
+    <ion-content class="has-header">
+      <ion-list>
+        <ion-item nav-clear menu-close href="#/app/home">
+          <i class="icon ion-home"></i>
+          Home
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/categoria">
+          <i class="icon ion-clipboard"></i>
+          Cadastrar Categoria
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/gasto">
+          <i class="icon ion-social-usd"></i>
+          Cadastrar Gasto
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/relatorio_anual">
+          <i class="icon ion-ios-list"></i>
+          Relatório Gastos Anual
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/relatorio_mensal">
+          <i class="icon ion-ios-list-outline"></i>
+          Relatório Gastos Mensal
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/download_database">
+          <i class="icon ion-android-download"></i>
+          Download da Base de Dados
+        </ion-item>
+        <ion-item nav-clear menu-close href="#/app/upload_database">
+          <i class="icon ion-android-upload"></i>
+          Upload da Base de Dados
+        </ion-item>
+      </ion-list>
+    </ion-content>
+</ion-side-menus>
+
+                
