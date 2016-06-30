@@ -19,7 +19,7 @@ angular.module('starter.controllers', [])
   	});
 
     $scope.openEditCategoriaModal = function(id){
-    var query = "select id, descricao from categoria where id = ?";
+    	var query = "select id, descricao from categoria where id = ?";
 	    db.transaction(function(transaction) {
 	    	transaction.executeSql(query, [id],
 	        	function(tx, result) {
@@ -81,17 +81,41 @@ angular.module('starter.controllers', [])
       	});
   	}
 
-  	$scope.removeCategoria = function(id) {
-  		var confirmPopup = $ionicPopup.confirm({
+  	//VERIFICAR SE TEM GASTOS PARA A CATEGORIA INFORMADA ANTES DE EXCLUIR E INFORMAR NA MSG
+  	$scope.checkToRemove = function(id) {
+  		var msg = '';
+	    var query = "select * from gasto where categoria = ?";
+     	
+      	db.transaction(function(transaction) {
+        	transaction.executeSql(query, [id],
+          		function(tx, result) {
+	            	if(result.rows.length > 0){
+	                	msg = 'Há gastos cadastrados nessa categoria, deseja excluir a mesma juntamente com os gastos?';
+	            	} else{
+	            		msg = 'Tem certeza que deseja excluir a categoria?';
+	            	}
+
+	            	$scope.removeCategoria(msg, id);
+          		}, function(error){
+              		console.log("ERRO SQL: " + error);
+          		}
+          	);
+      	});
+    }
+
+  	$scope.removeCategoria = function(msg, id) {
+  		var query = "";
+     	
+      	var confirmPopup = $ionicPopup.confirm({
 	    	title: 'Alerta',
-	    	template: 'Tem certeza que deseja excluir a categoria?',
+	    	template: msg,
 	    	cancelText: 'Não',
 	    	okText: 'Sim'
 	    });
 
 	    confirmPopup.then(function(res) {
 	    	if(res) {
-	       		var query = "delete from categoria where id = ?";
+	       		query = "delete from categoria where id = ?";
 		      	db.transaction(function(transaction) {
 		        	transaction.executeSql(query, [id],
 		          		function(tx, result) {
