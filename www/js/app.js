@@ -161,6 +161,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     })
 
+    .state('app.relatorio_mensal_periodo', {
+      cache: false, 
+      url: "/relatorio_mensal_periodo",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/relatorio_mensal_periodo.html",
+          controller: 'GastoCtrl'
+        }
+      }
+    })
+
     .state('app.relatorio_anual_lista', {
       url: '/relatorio_anual_lista',
       params: {
@@ -187,6 +198,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       views: {
         'menuContent': {
           templateUrl: 'templates/relatorio_mensal_lista.html',
+          controller: function($scope, $stateParams) {
+             $scope.gastos = $stateParams.gastos;
+             $scope.titulo_relatorio = $stateParams.titulo_relatorio;
+          }
+        }
+      }
+    })
+
+    .state('app.relatorio_mensal_periodo_lista', {
+      url: '/relatorio_mensal_periodo_lista',
+      params: {
+        gastos: null,
+        titulo_relatorio: null
+      },
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/relatorio_mensal_periodo_lista.html',
           controller: function($scope, $stateParams) {
              $scope.gastos = $stateParams.gastos;
              $scope.titulo_relatorio = $stateParams.titulo_relatorio;

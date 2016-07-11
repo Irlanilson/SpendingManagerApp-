@@ -522,6 +522,63 @@ angular.module('starter.controllers', [])
 	      	});
 	    }
   	}
+
+  	$scope.relatorioMensalPeriodo = function() {
+	    console.log("RECUPERANDO GASTOS MENSAIS...");
+      	$scope.gastos = [];
+      	var query = "";
+      	var data = "";
+      	var tipo_gasto = $scope.gasto.tipo;
+      	$scope.titulo_relatorio = 'Gastos de ' + $scope.formatNumber($scope.gasto.dia_inicial) + ' a '
+      								+ $scope.formatNumber($scope.gasto.dia_final) + ' de ' + $scope.findValueMonthById($scope.meses, $scope.gasto.mes);
+      	
+      	if(tipo_gasto == 2){//Todos
+      		query = "select g.*, c.descricao as categoria from gasto g, categoria c where ano = ? and mes = ? and dia between ? and ?"
+      					+ " and g.categoria = c.id order by c.descricao, dia";
+      	}else if(tipo_gasto == 1){//Constante
+      		query = "select g.*, c.descricao as categoria from gasto g, categoria c where ano = ? and mes = ? and eh_constante = 'true'"
+      					+ " and dia between ? and ? and g.categoria = c.id order by c.descricao, dia";
+      	}else if(tipo_gasto == 0){//Não constante
+      		query = "select g.*, c.descricao as categoria from gasto g, categoria c where ano = ? and mes = ? and eh_constante = 'false'"
+      					+ " and dia between ? and ? and g.categoria = c.id order by c.descricao, dia";
+      	}
+      	
+      	if(db != null){
+	      	db.transaction(function(transaction) {
+	        	transaction.executeSql(query, [$scope.gasto.ano, $scope.gasto.mes, $scope.gasto.dia_inicial, $scope.gasto.dia_final],
+	          		function(tx, result) {
+		            	if(result.rows.length > 0){
+		                	for(var i = 0; i < result.rows.length; i++) {
+		                		$scope.totalMes = $scope.totalMes + result.rows.item(i).valor;
+		                    	$scope.totalCategoria = $scope.totalCategoria + result.rows.item(i).valor;
+		                    	data = $scope.formatNumber(result.rows.item(i).dia) + "/" + $scope.formatNumber(result.rows.item(i).mes) + 
+		                				"/" + result.rows.item(i).ano;
+		                    	$scope.gastos.push({id: result.rows.item(i).id, ano: result.rows.item(i).ano,
+		                    		mes: result.rows.item(i).mes, dia: result.rows.item(i).dia,
+		                    		data: data,categoria: result.rows.item(i).categoria, descricao: result.rows.item(i).descricao,
+		                    		valor: result.rows.item(i).valor, eh_constante: result.rows.item(i).eh_constante,
+		                    		total_categoria: $scope.totalCategoria, total_mes: $scope.totalMes});
+		                	
+		                    	// Condicional para zerar o total da categoria
+		                    	if(i < result.rows.length-1 && (result.rows.item(i+1).categoria != result.rows.item(i).categoria || 
+		                    		result.rows.item(i+1).mes != result.rows.item(i).mes)){
+		                    		$scope.totalCategoria = 0;
+		                    	}
+		                	}
+		                	$state.go('app.relatorio_mensal_periodo_lista', {gastos: $scope.gastos, titulo_relatorio: $scope.titulo_relatorio});
+		                	console.log(result.rows.length + " rows found.");
+		            	} else {
+		                	$scope.gastos = [];
+		                	console.log("0 rows found.");
+		                	$cordovaToast.showShortCenter("Nenhum gasto encontrado!");
+		            	}
+	          		}, function(error){
+	              		console.log(error);
+	          		}
+	          	);
+	      	});
+	    }
+  	}
 })
 
 .controller('DatabaseCtrl', function($scope, $cordovaToast, $timeout, $cordovaFileTransfer) {
